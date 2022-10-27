@@ -268,6 +268,9 @@ EXTERN struct foo2 {
 #define isarmed a.isarmed		// Probe is armed
 #define nprobes a.nprobes		// number of probes available
 
+EXTERN char *fileloc;			// the help file location
+#define HELPLOC "/home/dad/.local/bin/" // folder where we put the help doc
+
 EXTERN int
 		kx[21],			// enemy sector locations
 		ky[21],

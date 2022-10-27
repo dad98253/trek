@@ -151,7 +151,7 @@ static void helpme(void) {
 		j = 0;
 		while ((cmdbuf[j+13] = toupper(commands[i][j])) != 0) j++;
 	}
-	fp = fopen("sst.doc", "r");
+	fp = fopen(fileloc, "r");
 	if (fp == NULL) {
 		prout("Spock-  \"Captain, that information is missing from the");
 		prout("   computer. You need to find SST.DOC and put it in the");
@@ -423,6 +423,14 @@ static void makemoves(void) {
 int main(int argc, char **argv) {
 	prelim();
 
+	// save the folder location of the executable - we will look
+	// there for the help document
+	int fldlen = strlen(HELPLOC);
+	fileloc = (char*)malloc(fldlen+200);
+	strcpy(fileloc,HELPLOC);
+	fileloc[fldlen] = '\000';
+	strcat(fileloc,"/sst.doc");
+
 	if (argc > 1) { // look for -f option
 		if (strcmp(argv[1], "-f")== 0) {
 			coordfixed = 1;
@@ -464,6 +472,7 @@ int main(int argc, char **argv) {
 		printf("Do you want to play again?");
 		if (!ja()) break;
 	}
+	free(fileloc);
 	skip(1);
 	prout("May the Great Bird of the Galaxy roost upon your home planet.");
 	return 0;
